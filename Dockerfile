@@ -6,17 +6,16 @@ ENV RUBY_PACKAGES ruby ruby-io-console ruby-json yaml nodejs
 
 RUN apk --update --upgrade add $BUILD_PACKAGES $RUBY_PACKAGES $DEV_PACKAGES
 
-ENV RAILS_ROOT /base
-WORKDIR $RAILS_ROOT
+ENV APP_ROOT /app
+RUN mkdir $APP_ROOT
+WORKDIR $APP_ROOT
 
-# ADD Gemfile $RAILS_ROOT
-# ADD Gemfile.lock $RAILS_ROOT
-
-# ENV RAILS_ENV production
-COPY . .
+ADD Gemfile* $APP_ROOT/
 
 RUN bundle install
 
+COPY . $APP_ROOT
+
 EXPOSE 3000
 
-CMD ["bundle", "exec", "rails", "s", "-p", "3000"]
+CMD ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
