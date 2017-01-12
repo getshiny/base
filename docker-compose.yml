@@ -14,15 +14,15 @@ services:
     depends_on:
       - db
 
-  app2:
-    build: .
-    command: sh /app/scripts/start.sh server_app2.pid
-    ports:
-      - "3000"
-    volumes:
-      - .:/app
-    depends_on:
-      - db
+  # app2:
+  #   build: .
+  #   command: sh /app/scripts/start.sh server_app2.pid
+  #   ports:
+  #     - "3000"
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - db
 
   haproxy:
     build:
