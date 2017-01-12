@@ -11,11 +11,10 @@ RUN mkdir $APP_ROOT
 WORKDIR $APP_ROOT
 
 ADD Gemfile* $APP_ROOT/
-
+RUN ls $APP_ROOT
 RUN bundle install
 
 COPY . $APP_ROOT
 
-EXPOSE 3000
-
-CMD ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
+# EXPOSE 3000
+# CMD ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]

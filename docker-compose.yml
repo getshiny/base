@@ -6,9 +6,9 @@ services:
 
   app:
     build: .
-    command: bundle exec rails s -p 3000 -b 0.0.0.0 --pid /app/tmp/pids/server_app.pid
+    command: sh /app/scripts/start.sh server_app.pid
     ports:
-      - "3000:3000"
+      - "3000"
     volumes:
       - .:/app
     depends_on:
@@ -16,7 +16,7 @@ services:
 
   app2:
     build: .
-    command: bundle exec rails s -p 3000 -b 0.0.0.0 --pid /app/tmp/pids/server_app2.pid
+    command: sh /app/scripts/start.sh server_app2.pid
     ports:
       - "3000"
     volumes:
