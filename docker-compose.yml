@@ -1,22 +1,38 @@
 version: '2'
 services:
+
   db:
     image: postgres
+
+  app:
+    build: .
+    command: sh /app/scripts/start.sh server_app.pid
+    ports:
+      - "3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  # app2:
+  #   build: .
+  #   command: sh /app/scripts/start.sh server_app2.pid
+  #   ports:
+  #     - "3000"
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - db
+
   haproxy:
-    build: ./haproxy
+    build:
+      context: ./haproxy
     depends_on:
      - app
+    #  - app2
     ports:
      - "80:80"
      - "70:70"
     expose:
      - "80"
      - "70"
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-    depends_on:
-      - db
